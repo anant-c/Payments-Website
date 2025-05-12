@@ -1,5 +1,5 @@
 import express from 'express'
-import { connectDb } from './config/db'
+import { connectDb } from './config/db.js'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -11,6 +11,8 @@ dotenv.config() // for environment variables
 const app = express()
 app.use(cors()) // enables CORS for all r   outes
 app.use(express.json()) //allows to accept JSON data in the req.body
+
+
 app.use("/api/v1", version1) // => currently doing things with this one
 
 // if we ever release a v2 then all it's api calls will be routed there

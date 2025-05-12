@@ -1,21 +1,17 @@
 import express from 'express'
+import { userSignIn, userSignUp, userUpdate, userSearch } from '../../controllers/user.controller.js'
+import { authMiddleware } from '../../middlewares/user.auth.middleware.js'
 
 const router = express.Router()
 
-router.get("/",()=>{
 
-})
+router.post("/signup", userSignUp)
+router.post("/signin", userSignIn)
 
-router.post("/",()=>{
+router.put("/",authMiddleware,userUpdate)
 
-})
+router.get("/bulk", authMiddleware,userSearch);
 
-router.put("/:id",()=>{
 
-})
-
-router.delete("/:id",()=>{
-    
-})
 
 export default router;
