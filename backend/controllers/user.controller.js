@@ -8,11 +8,11 @@ const userSchema = zod.object({
     firstName: zod.string().min(1).max(50),
     lastName: zod.string().min(1).max(50),
     password: zod.string().min(8),
-    username: zod.string().min(3).max(30).regex(/^[a-zA-Z0-9]+$/), // Alphanumeric only
+    username: zod.string().email({ required_error: 'Email is required.', invalid_type_error: 'Email is invalid.' }),
 })
 
 const signinSchema = zod.object({
-    username: zod.string().min(3).max(30).regex(/^[a-zA-Z0-9]+$/), // Alphanumeric only
+    username: zod.string().email({ required_error: 'Email is required.', invalid_type_error: 'Email is invalid.' }),
     password: zod.string().min(8)
 })
 
@@ -95,7 +95,7 @@ export const userSignIn = async (req, res) =>{
             })
         }
 
-        const isPasswordCorrect = await bcrypt.compare(credentials.password, dbUser.password);
+        const isPasswordCorrect = bcrypt.compare(credentials.password, dbUser.password);
 
         if(!isPasswordCorrect){
             return res.status(401).json({

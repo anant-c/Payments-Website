@@ -3,9 +3,7 @@ import Account from "../model/account.model.js"
 import zod from "zod";
 
 const transferMoneySchema = zod.object({
-    amount: zod
-    .number({ required_error: "Amount is required", invalid_type_error: "Amount must be a number" })
-    .positive("Amount must be greater than zero"),
+    amount: zod.number({ required_error: "Amount is required", invalid_type_error: "Amount must be a number" }).positive("Amount must be greater than zero"),
     to: zod.string({ required_error: "Destination userId is required" })
 })
 
@@ -39,6 +37,8 @@ export const transferMoney = async (req, res)=>{
 
     }
 
+    const { amount, to } = response.data;
+
     const session = await mongoose.startSession();
     try{
 
@@ -53,8 +53,8 @@ export const transferMoney = async (req, res)=>{
             })
         }
 
-        const toAccount = await Account.findOne({userId: to}).session(session);
-
+        const toAccount = await Account.findOne({userId: to }).session(session);
+        
         if(!toAccount){
             await session.abortTransaction();
             return res.status(400).json({
@@ -75,8 +75,10 @@ export const transferMoney = async (req, res)=>{
     } 
     catch(err){
         return res.status(400).json({
-            "message":"Transaction Unsuccessful."
+            "message":`Transaction Unsuccessful. Err: ${err}`
         })
+    } finally{
+        session.endSession(); //Always end the session
     }
     
 }
