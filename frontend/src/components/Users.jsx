@@ -1,18 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Input} from '../components/ui/input'
 import UserCard from './UserCard'
+import axios from "axios"
 
 const Users = () => {
+  const [users, setUsers] = useState([])
+  const [filter, setFilter] = useState('')
+
+  useEffect(() =>{
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem("authorization");
+        const response = await axios.get(`http://localhost:3000/api/v1/user/bulk/?filter=${filter}`,{
+          headers:{
+            Authorization: token
+          }
+        })
+        setUsers(response.data.user)
+      } catch (error) {
+        console.error('Error fetching users:', error)
+      }
+    }
+
+    fetchUsers()
+  }, [filter])
+
   return (
     <div className='flex flex-col gap-2'>
         <div className='text-2xl font-extrabold'>Users</div>
-        <Input></Input>
+        <Input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Search users..." />
 
         <div className='pt-5'>
-            <UserCard name={"Anant"}/>
-            <UserCard name={"Aryan"}/>
-            <UserCard name={"Lokesh"}/>
-            <UserCard name={"Taklu"}/>
+            {users.map(user => (
+              <UserCard name={user.firstName} />
+            ))}
+
+            {users.length === 0 && (
+              <div className='text-gray-500 text-center'>No users found</div>
+            )}
         </div>
 
     </div>

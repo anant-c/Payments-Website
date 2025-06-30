@@ -46,7 +46,7 @@ const Signup = () => {
               password
             });
 
-            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("token", "Bearer "+response.data.token)
             navigate("/dashboard")
           }} />
         </div>

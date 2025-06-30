@@ -32,7 +32,7 @@ const SendMoney = ({to}) => {
         <Headings label="Send Money" />
         <SubHeading label="Enter the details to send money." />
 
-        <InputBox label="E-mail" onChange={(e)=>{
+        <InputBox label="Amount" onChange={(e)=>{
           setMoney(e.target.value)
         }} placeholder={"Enter Amount"}></InputBox>
 

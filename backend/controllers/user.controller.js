@@ -57,11 +57,16 @@ export const userSignUp = async (req,res) =>{
             balance: 1 + Math.random()*10000    
         })
 
+        // can have expires in argument
+        // const token = jwt.sign({
+        //     userId: dbUser._id
+        // }, process.env.JWT_SECRET, {
+        //     expiresIn: "1h"
+        // })
+
         const token = jwt.sign({
             userId: dbUser._id
-        }, process.env.JWT_SECRET, {
-            expiresIn: "1h"
-        })
+        }, process.env.JWT_SECRET)
 
         return res.status(200).json({
             message:"User created Successfully.",
@@ -105,9 +110,7 @@ export const userSignIn = async (req, res) =>{
 
         const token = jwt.sign({
             userId: dbUser._id
-        }, process.env.JWT_SECRET, {
-            expiresIn: "1h"
-        })
+        }, process.env.JWT_SECRET)
 
         return res.status(200).json({
             message: "Sign in successful.",
