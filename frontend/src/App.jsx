@@ -6,7 +6,7 @@ const Signup = lazy(() => import('./pages/Signup'));
 const Signin = lazy(() => import('./pages/Signin'));
 const SendMoney = lazy(() => import('./pages/SendMoney'));
 const Loader = lazy(() => import('./components/Loader'));
-
+const EditProfile = lazy(()=> import('./pages/EditProfile'))
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
         <Route path="/signup" element={<Suspense fallback={<Loader />}><Signup /></Suspense>} />
         <Route path="/signin" element={<Suspense fallback={<Loader />}><Signin /></Suspense>} />
         <Route path="/send" element={<Suspense fallback={<Loader />}><SendMoney /></Suspense>} />
+        <Route path="/edit" element={<Suspense fallback={<Loader/>}> <EditProfile/></Suspense>}/>
       </Routes>
       
     </>

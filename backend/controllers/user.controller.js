@@ -20,6 +20,7 @@ const updateSchema = zod.object({
     password: zod.string().min(8).optional(),
     firstName: zod.string().min(1).max(50).optional(),
     lastName: zod.string().min(1).max(50).optional(),
+    username: zod.string().email().optional()
 })
 
 export const userSignUp = async (req,res) =>{

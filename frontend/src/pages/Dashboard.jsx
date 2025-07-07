@@ -1,9 +1,11 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, lazy} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Appbar from '../components/Appbar'
 import Balance from '../components/Balance'
 import Users from '../components/Users'
 import axios from 'axios'
+const Loader = lazy(() => import('../components/Loader'));
+
 
 const Dashboard = () => {
 
@@ -50,9 +52,7 @@ const Dashboard = () => {
   }, [navigate])
 
   if(loading){
-    return <div>
-      Check auth
-    </div>
+    return <Loader/>
   }
 
   return (

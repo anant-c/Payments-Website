@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Appbar = () => {
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchName = async()=>{
@@ -20,7 +22,10 @@ const Appbar = () => {
     fetchName()
   },[])
 
-
+  const handleLogOut = ()=>{
+    localStorage.removeItem("token")
+    navigate('/signin')
+  }
   
   return (  
     <div className="border-gray-200 border-solid border-2 shadow-lg rounded-md m-2 h-14 flex items-center justify-between px-4">
@@ -39,8 +44,8 @@ const Appbar = () => {
               />
               {open && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow flex flex-col">
-                    <button className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleEdit}>Edit Profile</button>
-                    <button className="p-2 hover:bg-gray-100 cursor-pointer">Logout</button>
+                    <button className="p-2 hover:bg-gray-100 cursor-pointer" onClick={()=> navigate('/edit')}>Edit Profile</button>
+                    <button className="p-2 hover:bg-gray-100 cursor-pointer" onClick= {handleLogOut}>Logout</button>
                 </div>
               )}
             </div>
