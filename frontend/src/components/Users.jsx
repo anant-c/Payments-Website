@@ -10,7 +10,7 @@ const Users = () => {
   useEffect(() =>{
     const fetchUsers = async () => {
       try {
-        const token = localStorage.getItem("authorization");
+        const token = localStorage.getItem("token");
         const response = await axios.get(`http://localhost:3000/api/v1/user/bulk/?filter=${filter}`,{
           headers:{
             Authorization: token
@@ -32,7 +32,7 @@ const Users = () => {
 
         <div className='pt-5'>
             {users.map(user => (
-              <UserCard name={user.firstName} />
+              <UserCard key={user._id} name={user.firstName} />
             ))}
 
             {users.length === 0 && (

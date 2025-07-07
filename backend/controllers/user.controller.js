@@ -163,6 +163,19 @@ export const userUpdate = async (req,res) =>{
     }
 }
 
+export const userDetails = async (req, res) =>{
+    try{
+        const user = await User.findById(req.userId).select('firstName lastName username')
+
+        return res.status(200).json(user)
+    }
+    catch(err){
+        return res.status(500).json({
+            message:"Error while fetching user details."
+        })
+    }
+}
+
 export const userSearch = async (req,res)=>{
     const filter = req.query.filter || "";
 

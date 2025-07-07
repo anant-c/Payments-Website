@@ -1,6 +1,27 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios';
 
 const Appbar = () => {
+  const [name, setName] = useState("");
+  const [open, setOpen] = useState(false);
+
+  useEffect(()=>{
+    const fetchName = async()=>{
+      const token = localStorage.getItem("token");
+      const userData = await axios.get("http://localhost:3000/api/v1/user/profile",{
+        headers:{
+          Authorization: token
+        }
+      })
+
+      setName(userData.data.firstName)
+    }
+
+    fetchName()
+  },[])
+
+
+  
   return (  
     <div className="border-gray-200 border-solid border-2 shadow-lg rounded-md m-2 h-14 flex items-center justify-between px-4">
         <div className='font-bold font-londrina'>
@@ -8,8 +29,21 @@ const Appbar = () => {
             <span className='text-[#00BCF1]'>tm</span>
         </div>
         <div className='flex items-center gap-4'>
-            <div >User</div>
-            <div><img src="https://img.icons8.com/?size=100&id=rrtYnzKMTlUr&format=png&color=000000" alt="User Avatar" className='w-8 h-8 rounded-full' /></div>
+            <div >Hi! {name}</div>
+            <div className="relative">
+              <img
+                src="https://img.icons8.com/?size=100&id=rrtYnzKMTlUr&format=png&color=000000"
+                onClick={() => setOpen(!open)}
+                className="w-8 h-8 rounded-full cursor-pointer"
+                alt="User Avatar"
+              />
+              {open && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow flex flex-col">
+                    <button className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleEdit}>Edit Profile</button>
+                    <button className="p-2 hover:bg-gray-100 cursor-pointer">Logout</button>
+                </div>
+              )}
+            </div>
         </div>
     </div>
   )
