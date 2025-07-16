@@ -101,7 +101,7 @@ export const userSignIn = async (req, res) =>{
             })
         }
 
-        const isPasswordCorrect = bcrypt.compare(credentials.password, dbUser.password);
+        const isPasswordCorrect = await bcrypt.compare(credentials.password, dbUser.password);
 
         if(!isPasswordCorrect){
             return res.status(401).json({

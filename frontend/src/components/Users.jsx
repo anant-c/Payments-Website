@@ -32,7 +32,7 @@ const Users = () => {
 
         <div className='pt-5'>
             {users.map(user => (
-              <UserCard key={user._id} name={user.firstName} />
+              <UserCard key={user._id} userId={user._id} name={user.firstName} />
             ))}
 
             {users.length === 0 && (

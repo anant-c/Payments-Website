@@ -46,10 +46,10 @@ const EditProfile = () => {
             const token = localStorage.getItem("token")
             
             const response = await axios.put("http://localhost:3000/api/v1/user/",{
-              username: email,
-              firstName,
-              lastName,
-              password
+              ...(email && {username: email}),
+              ...(firstName && {firstName}),
+              ...(lastName && {lastName}),
+              ...(password && {password})
             },
             {
                 headers:{
