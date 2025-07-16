@@ -10,10 +10,10 @@ const UserCard = ({userId,name}) => {
             <div><img src="https://img.icons8.com/?size=100&id=rrtYnzKMTlUr&format=png&color=000000" alt="User Avatar" className='w-[24px] h-[24px] rounded-full' /></div>
             <div className='ml-4 text-md font-bold'>{name}</div>
         </div>
-        <Button onClick={()=>{navigate('/send',{state: {userId}})}}>
+        <Button onClick={()=>{navigate('/send?id=' + userId + "&name="+name)}}>
             Send Money
         </Button>
-    </div>
+    </div>  
   )
 }
 

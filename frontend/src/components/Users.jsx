@@ -21,8 +21,11 @@ const Users = () => {
         console.error('Error fetching users:', error)
       }
     }
+    const delayDebounce = setTimeout(()=>{
+      fetchUsers()
+    }, 1000)
 
-    fetchUsers()
+    return ()=> clearTimeout(delayDebounce)
   }, [filter])
 
   return (
