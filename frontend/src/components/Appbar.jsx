@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 const Appbar = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ const Appbar = () => {
   useEffect(()=>{
     const fetchName = async()=>{
       const token = localStorage.getItem("token");
-      const userData = await axios.get("http://localhost:3000/api/v1/user/profile",{
+      const userData = await axios.get(`${backendUrl}/api/v1/user/profile`,{
         headers:{
           Authorization: token
         }

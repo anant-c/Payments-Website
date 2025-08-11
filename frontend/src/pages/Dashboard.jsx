@@ -5,7 +5,7 @@ import Balance from '../components/Balance'
 import Users from '../components/Users'
 import axios from 'axios'
 const Loader = lazy(() => import('../components/Loader'));
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 const Dashboard = () => {
 
@@ -23,13 +23,13 @@ const Dashboard = () => {
       }
 
       try{
-        const res = await axios.get('http://localhost:3000/api/v1/user/protected-route',{
+        const res = await axios.get(`${backendUrl}/api/v1/user/protected-route`,{
           headers :{
             Authorization : token
           }
         })
-        
-        const amountreq = await axios.get('http://localhost:3000/api/v1/account/balance',{
+
+        const amountreq = await axios.get(`${backendUrl}/api/v1/account/balance`,{
           headers:{
             Authorization: token
           }

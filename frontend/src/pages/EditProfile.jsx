@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 
 const EditProfile = () => {
@@ -44,8 +45,8 @@ const EditProfile = () => {
         <div className='pt-4'>
           <Button label="Edit Profile" onClick={async () => {
             const token = localStorage.getItem("token")
-            
-            const response = await axios.put("http://localhost:3000/api/v1/user/",{
+
+            const response = await axios.put(`${backendUrl}/api/v1/user/`,{
               ...(email && {username: email}),
               ...(firstName && {firstName}),
               ...(lastName && {lastName}),

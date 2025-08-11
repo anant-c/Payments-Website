@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from "axios"
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 const Signin = () => {
 
@@ -21,7 +22,7 @@ const Signin = () => {
     setIsSubmitting(true);
 
     try{
-      const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+      const response = await axios.post(`${backendUrl}/api/v1/user/signin`, {
         username: email,
         password: password
       });

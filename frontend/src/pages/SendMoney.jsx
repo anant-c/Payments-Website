@@ -7,7 +7,7 @@ import Button from '@/components/Button'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 const SendMoney = () => {
   const [money, setMoney] = useState("")
@@ -34,8 +34,8 @@ const SendMoney = () => {
         navigate('/dashboard');
         return;
       }
-      
-      const response = await axios.post("http://localhost:3000/api/v1/account/transfer",{
+
+      const response = await axios.post(`${backendUrl}/api/v1/account/transfer`, {
         amount: Number(money),
         to: id
       },{

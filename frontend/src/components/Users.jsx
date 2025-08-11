@@ -3,6 +3,8 @@ import {Input} from '../components/ui/input'
 import UserCard from './UserCard'
 import axios from "axios"
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+
 const Users = () => {
   const [users, setUsers] = useState([])
   const [filter, setFilter] = useState('')
@@ -11,7 +13,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:3000/api/v1/user/bulk/?filter=${filter}`,{
+        const response = await axios.get(`${backendUrl}/api/v1/user/bulk/?filter=${filter}`,{
           headers:{
             Authorization: token
           }
