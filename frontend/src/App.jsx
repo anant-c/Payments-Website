@@ -1,5 +1,6 @@
 import {Routes, Route} from 'react-router-dom';
 import {lazy, Suspense} from 'react';
+import { Navigate } from 'react-router-dom';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Signup = lazy(() => import('./pages/Signup'));
